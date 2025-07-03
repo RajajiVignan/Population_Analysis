@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Population Analysis</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Population Analysis</h1>
+        
+        <div class="my-4">
+            <a href="/run-analysis" class="btn btn-primary">Run Analysis</a>
+        </div>
+        
+        <h2>Population Data</h2>
+        <div class="table-responsive">
+            {{ data|safe }}
+        </div>
+
+        <h2 class="mt-5">Population Plot</h2>
+        <img src="/plot" alt="Population Plot" class="img-fluid">
+    </div>
+</body>
+</html>
