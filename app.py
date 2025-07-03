@@ -4,7 +4,6 @@ import pandas as pd
 import os
 
 # Import the analysis functions from your existing scripts
-from population_data_fetcher import main as fetch_data
 from population_predictor import main as predict_population
 from population_comparison import main as compare_population
 
@@ -28,7 +27,6 @@ def index():
 @app.route('/run-analysis')
 def run_analysis():
     # Run the data fetching, prediction, and comparison scripts
-    fetch_data()
     predict_population()
     compare_population()
     return redirect(url_for('index'))

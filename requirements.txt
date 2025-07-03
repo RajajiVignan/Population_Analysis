@@ -2,3 +2,5 @@ Flask
 pandas
 requests
 gunicorn
+supabase
+python-dotenv

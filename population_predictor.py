@@ -1,14 +1,18 @@
 
 import pandas as pd
 import os
+from supabase_client import supabase
 
 def main():
     # Get the directory of the script
     SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
-    # Load the datasets
-    population_df = pd.read_csv(os.path.join(SCRIPT_DIR, 'population_data', 'ourworldindata_population_data.csv'))
-    tfr_df = pd.read_csv(os.path.join(SCRIPT_DIR, 'population_data', 'tfr_countries.csv'))
+    # Load the datasets from Supabase
+    population_response = supabase.table('ourworldindata_population').select('*').execute()
+    tfr_response = supabase.table('TFR table').select('*').execute()
+
+    population_df = pd.DataFrame(population_response.data)
+    tfr_df = pd.DataFrame(tfr_response.data)
 
     # Get the most recent population data
     population_2023 = population_df[population_df['year'] == 2023]

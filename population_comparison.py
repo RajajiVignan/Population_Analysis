@@ -1,6 +1,7 @@
 
 import pandas as pd
 import os
+from supabase_client import supabase
 
 def main():
     # Get the directory of the script
@@ -8,7 +9,8 @@ def main():
 
     # Load the datasets
     predicted_population_df = pd.read_csv(os.path.join(SCRIPT_DIR, 'predicted_population.csv'))
-    ourworldindata_population_df = pd.read_csv(os.path.join(SCRIPT_DIR, 'population_data', 'ourworldindata_population_data.csv'))
+    ourworldindata_population_response = supabase.table('ourworldindata_population').select('*').execute()
+    ourworldindata_population_df = pd.DataFrame(ourworldindata_population_response.data)
 
     # Get the historical data for the last 10 years (2014-2023)
     historical_df = ourworldindata_population_df[ourworldindata_population_df['year'].between(2014, 2023)]
