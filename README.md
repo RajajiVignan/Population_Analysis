@@ -53,6 +53,9 @@ The output of this phase is stored in `predicted_population.csv`, which contains
 *   **Prediction Intervals:** Line plots showing the predicted population with upper and lower bounds of confidence intervals.
 *   **Growth Rate Projections:** Bar charts or line plots illustrating projected annual or decadal population growth rates.
 
+### Prediction Chart Example
+![Prediction Chart](newplot.png)
+
 ## 3. Population Comparison and Analysis
 
 This final stage involves comparing the predicted population data with other datasets or different prediction scenarios, and drawing insights.
