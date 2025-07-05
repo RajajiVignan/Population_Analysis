@@ -18,11 +18,29 @@ def index():
     # Read the CSV data
     if os.path.exists(CSV_FILE):
         df = pd.read_csv(CSV_FILE)
+        countries = df['country'].unique().tolist()
         data = df.to_html(classes='table table-striped', index=False)
     else:
         data = "No data available. Please run the analysis."
+        countries = []
         
-    return render_template('index.html', data=data)
+    return render_template('index.html', data=data, countries=countries)
+
+@app.route('/country/<country>')
+def country_data(country):
+    # Read the CSV data
+    if os.path.exists(CSV_FILE):
+        df = pd.read_csv(CSV_FILE)
+        countries = df['country'].unique().tolist()
+        
+        # Filter by country
+        df_country = df[df['country'] == country]
+        data = df_country.to_html(classes='table table-striped', index=False)
+    else:
+        data = "No data available. Please run the analysis."
+        countries = []
+        
+    return render_template('index.html', data=data, countries=countries)
 
 @app.route('/run-analysis')
 def run_analysis():

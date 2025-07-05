@@ -14,6 +14,20 @@
         <div class="my-4">
             <a href="/run-analysis" class="btn btn-primary">Run Analysis</a>
         </div>
+
+        <div class="my-4">
+            <form action="#" id="country-form">
+                <div class="form-group">
+                    <label for="country-select">Select Country:</label>
+                    <select class="form-control" id="country-select">
+                        <option value="">All Countries</option>
+                        {% for country in countries %}
+                            <option value="{{ country }}">{{ country }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </form>
+        </div>
         
         <h2>Population Data</h2>
         <div class="table-responsive">
@@ -23,5 +37,16 @@
         <h2 class="mt-5">Population Plot</h2>
         <img src="/plot" alt="Population Plot" class="img-fluid">
     </div>
+
+    <script>
+        document.getElementById('country-select').addEventListener('change', function() {
+            var country = this.value;
+            if (country) {
+                window.location.href = '/country/' + country;
+            } else {
+                window.location.href = '/';
+            }
+        });
+    </script>
 </body>
 </html>
