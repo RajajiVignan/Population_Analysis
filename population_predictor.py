@@ -10,10 +10,10 @@ def main():
     # Load the datasets from Supabase
     population_response = supabase.table('ourworldindata_population').select('*').execute()
     tfr_response = supabase.table('TFR table').select('*').execute()
-
+    print(tfr_response.data[:5])  # Print first 5 rows of TFR data for debugging
     population_df = pd.DataFrame(population_response.data)
     tfr_df = pd.DataFrame(tfr_response.data)
-    print(tfr_df.head())
+    print(population_df.head())
     # Get the most recent population data
     population_2023 = population_df[population_df['year'] == 2023]
 
