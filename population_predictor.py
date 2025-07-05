@@ -13,7 +13,7 @@ def main():
 
     population_df = pd.DataFrame(population_response.data)
     tfr_df = pd.DataFrame(tfr_response.data)
-
+    print(tfr_df.head())
     # Get the most recent population data
     population_2023 = population_df[population_df['year'] == 2023]
 
