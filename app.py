@@ -23,15 +23,16 @@ def index():
 
 @app.route('/country/<country>')
 def country_data(country):
-    # Fetch all countries for the dropdown
-    countries_response = supabase.table('ourworldindata_population').select('country').execute()
-    countries_df = pd.DataFrame(countries_response.data)
-    countries = sorted(countries_df['country'].unique().tolist())
-
-    # Fetch data for the selected country
-    response = supabase.table('ourworldindata_population').select('*').eq('country', country).execute()
+    # Fetch all data from the table
+    response = supabase.table('ourworldindata_population').select('*').execute()
     df = pd.DataFrame(response.data)
-    data = df.to_html(classes='table table-striped', index=False)
+
+    # Get the list of all unique countries for the dropdown
+    countries = sorted(df['country'].unique().tolist())
+
+    # Filter the DataFrame to get data for the selected country
+    country_df = df[df['country'] == country]
+    data = country_df.to_html(classes='table table-striped', index=False)
     
     return render_template('index.html', data=data, countries=countries, selected_country=country)
 
