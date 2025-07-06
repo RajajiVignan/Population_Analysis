@@ -10,12 +10,12 @@ PLOT_FILE = 'newplot.png'
 @app.route('/')
 def index():
     # Fetch all countries
-    countries_response = supabase.table('ourworldindata_population').select('country').execute()
+    countries_response = supabase.table('ourworldindata_population').select('country').limit(60000).execute()
     countries_df = pd.DataFrame(countries_response.data)
     countries = sorted(countries_df['country'].unique().tolist())
 
     # Fetch all data
-    response = supabase.table('ourworldindata_population').select('*').execute()
+    response = supabase.table('ourworldindata_population').select('*').limit(60000).execute()
     df = pd.DataFrame(response.data)
     data = df.to_html(classes='table table-striped', index=False)
     
@@ -23,16 +23,15 @@ def index():
 
 @app.route('/country/<country>')
 def country_data(country):
-    # Fetch all data from the table
-    response = supabase.table('ourworldindata_population').select('*').execute()
+    # Fetch all countries for the dropdown
+    countries_response = supabase.table('ourworldindata_population').select('country').limit(60000).execute()
+    countries_df = pd.DataFrame(countries_response.data)
+    countries = sorted(countries_df['country'].unique().tolist())
+
+    # Fetch data for the selected country
+    response = supabase.table('ourworldindata_population').select('*').eq('country', country).execute()
     df = pd.DataFrame(response.data)
-
-    # Get the list of all unique countries for the dropdown
-    countries = sorted(df['country'].unique().tolist())
-
-    # Filter the DataFrame to get data for the selected country
-    country_df = df[df['country'] == country]
-    data = country_df.to_html(classes='table table-striped', index=False)
+    data = df.to_html(classes='table table-striped', index=False)
     
     return render_template('index.html', data=data, countries=countries, selected_country=country)
 
